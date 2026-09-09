@@ -18,5 +18,6 @@ db.execute('INSERT INTO products (name, tastiness, description) VALUES ("Äpple"
 db.execute('INSERT INTO products (name, tastiness, description) VALUES ("Päron",  6, "En nästan rund, men lite avlång, frukt. Oftast mjukt fruktkött.")')
 db.execute('INSERT INTO products (name, tastiness, description) VALUES ("Banan",  4, "En avlång gul frukt.")')
 db.execute('INSERT INTO products (name, tastiness, description) VALUES ("Mango",  9, "En god frukt med stor kärna.")')
+# db.execute('INSERT INTO products (name, tastiness, description) VALUES ("Apelsin",  8, "En stor orange frukt")')
 
 puts "✅ Databasen är seedad!"

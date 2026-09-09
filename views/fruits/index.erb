@@ -2,6 +2,9 @@
 
 <ul>
     <% @fruits.each do |fruit|%>
-    <li> <%= fruit["name"]%> </li>
+    <li>
+        <a href="fruits/<%= fruit["id"]%>"> 
+            <%= fruit["name"]%> </a>
+    </li>
     <% end %>
-</ul>
+</ul> 
