@@ -1,4 +1,14 @@
 <h2>Ny frukt</h2>
 
-<code>TODO: Skapa ett formulär för att skapa en ny frukt</code>
-<% @new = ["Apelsin", 8, "En orange frukt"] %>
+<form action="/fruits" method="post">
+    Namn:
+    <input type=text name="name">
+    Smak(?/10): 
+    <input type="text" name="taste">
+    <br>
+    Beskrivning:
+    <input type="text" name="desc">
+    Ursprungsland:
+    <input type="text" name="origin">
+    <input type="submit" value="Spara frukt">
+</form>
