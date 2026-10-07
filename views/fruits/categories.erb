@@ -1,0 +1,7 @@
+<h2>Alla kategorier</h2>
+
+<ul>
+    <%@categories.each do |kat|%>
+    <li><a href="/fruits/categories/<%= kat["id"] %>"><%= kat["name"]%> </li>
+    <%end%>
+</ul>

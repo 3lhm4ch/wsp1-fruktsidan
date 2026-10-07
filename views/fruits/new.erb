@@ -1,3 +1,5 @@
+<% kategorier = ["Stenfrukt", "Bär", "Citrusfrukter", "Tropisk", "Annat"] %>
+
 <h2>Ny frukt</h2>
 
 <form action="/fruits" method="post">
@@ -10,5 +12,11 @@
     <input type="text" name="desc">
     Ursprungsland:
     <input type="text" name="origin">
+    Kategori:
+    <select name="categories_id">
+        <% @categories.each do |kat|%>
+        <option value="<%= kat["id"]%>"><%= kat["name"]%></option>
+        <%end%>
+    </select>
     <input type="submit" value="Spara frukt">
 </form>

@@ -14,12 +14,19 @@ class App < Sinatra::Base
     end
 
     get "/fruits" do
-      @fruits = db.execute("SELECT * FROM products ORDER BY name")
+      @fruits = db.execute("SELECT * FROM products ORDER BY categories_id, name")
+      @categories = db.execute("SELECT * FROM categories")
       erb(:"fruits/index")
     end 
 
     get "/fruits/new" do
+      @categories = db.execute("SELECT * FROM categories")
       erb(:"fruits/new")
+    end
+
+    get "/fruits/categories" do
+      @categories = db.execute("SELECT * FROM categories")
+      erb(:'fruits/categories')
     end
 
     get "/fruits/:id" do |id|
@@ -29,11 +36,23 @@ class App < Sinatra::Base
 
     get "/fruits/:id/edit" do |id|
       @fruits = db.execute("SELECT * FROM products WHERE id=?", id).first
+      @categories = db.execute("SELECT * FROM categories")
       erb(:'fruits/edit')
     end
 
+    get "/fruits/categories/:id" do |id|
+      @fruits = db.execute("SELECT * FROM products WHERE categories_id=?", id)
+      @categories = db.execute("SELECT * FROM categories")
+      @cat_id = id
+      erb(:"fruits/index")
+    end
+
+    post "/categories" do
+      redirect("/fruits/categories/#{params["categories"]}")
+    end 
+
     post "/fruits/edit" do
-      db.execute("UPDATE products SET name = '#{params["name"]}', tastiness = '#{params["taste"]}', description = '#{params["desc"]}', origin = '#{params["origin"]}' WHERE id=#{params["id"]}")
+      db.execute("UPDATE products SET name = '#{params["name"]}', tastiness = '#{params["taste"]}', description = '#{params["desc"]}', origin = '#{params["origin"]}', categories_id = '#{params["categories_id"]}' WHERE id=#{params["id"]}")
       redirect("/fruits")
     end
 
@@ -43,10 +62,7 @@ class App < Sinatra::Base
     end
 
     post "/fruits" do
-      db.execute("INSERT INTO products (name, tastiness, description, origin) VALUES ('#{params["name"]}', #{params["taste"]}, '#{params["desc"]}', '#{params["origin"]}')")
+      db.execute("INSERT INTO products (name, tastiness, description, origin, categories_id) VALUES ('#{params["name"]}', #{params["taste"]}, '#{params["desc"]}', '#{params["origin"]}', '#{params["categories_id"]}')")
       redirect("/fruits")
     end
 end
-
-
-# INSERT INTO products (name, tastiness, description) VALUES ("Apelsin",  8, "En stor orange frukt")

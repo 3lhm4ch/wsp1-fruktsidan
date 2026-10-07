@@ -1,18 +1,38 @@
-<h2>Alla frukter i butiken</h2>
+<% if @cat_id != nil%>
+    <h2> <%= @categories[@cat_id.to_i-1]["name"] %> </h2>
+<%else%>
+    <h2> Alla frukter</h2>
+<%end%>
 
+<form action="/categories" method="post">
+    <select name="categories">
+        <% @categories.each do |kat|%>
+            <option value="<%= kat["id"]%>"> <%= kat["name"]%> </option>
+        <%end%>
+    </select>   
+    <input type="submit" value="Sök">
+</form>
+
+<form action="/fruits" method="get">
+    <input type="submit" value="Ta bort filter">
+</form>
+<% if @fruits == []%>
+    <p>Inga frukter i kategorin hittades :(</p>
+<% else %>
 <ul>
     <% @fruits.each do |fruit|%>
-    <li>
-        <a href="/fruits/<%= fruit["id"]%>"> 
-            <%= fruit["name"]%> </a>
+        <li>
+            <a href="/fruits/<%= fruit["id"]%>"> 
+                <%= fruit["name"]%> </a>
 
-        <form action="/fruits/<%= fruit["id"]%>/delete" method="post">
-            <input type="submit" value="Ta bort">
-        </form>
+            <form action="/fruits/<%= fruit["id"]%>/delete" method="post">
+                <input type="submit" value="Ta bort">
+            </form>
 
-        <form action="/fruits/<%= fruit["id"]%>/edit" method="get">
-            <input type="submit" value="Ändra">
-        </form>
-    </li>
+            <form action="/fruits/<%= fruit["id"]%>/edit" method="get">
+                <input type="submit" value="Ändra">
+            </form>
+        </li>
     <% end %>
 </ul> 
+<% end %>
